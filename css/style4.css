@@ -38,7 +38,7 @@ body{
 	margin-left:0px;
 	left:0;
 	right:0;
-	top:0;
+	top:56px;
 	bottom:0;
 }
 #logo_image{
@@ -46,13 +46,13 @@ body{
 	height:130px;
 }
 #dept_name{
-	width:250px;
+	width:2500px;
 	margin-top:0px;
 	font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 	color:#ffce08;
 	font-weight:800;
-	font-size:20px;
-	margin-left:450px;
+	font-size:40px;
+	margin-left:50px;
 	float:left;
 }
 
