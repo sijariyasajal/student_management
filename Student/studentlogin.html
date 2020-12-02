@@ -1,0 +1,60 @@
+<?php 
+session_start();
+if(isset($_SESSION['name']))
+{
+
+?>
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Student Login</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+					<a href="../askquestion.html" target="_blank"><button id="ask_ques">Ask Question</button></a>
+					<a href="../answerquestion.html" target="_blank"><button id="ans_ques">Answer Question</button></a>
+
+			<aside>
+					<div id="left_side">	
+					<a href="studentlogin.html" ><button id="home">Home</button></a>
+					<a href="attendance.html" ><button id="home">Attendance</button></a>
+					<a href="sessional_marks.html" ><button id="home">Sessional Marks</button></a>
+					<a href="notification.html" ><button id="home">Notification</button></a>
+					<a href="../logout.html" ><button id="home">Logout</button></a>
+					
+					<br><br>
+				</div>
+
+					<div id="right_side">
+					<h1 id="st_info_name"><?php echo ucwords($_SESSION['name']); ?></h1>
+					<hr style="border:2px solid #092B4C; margin-left: 8px; margin-right: 8px;" />
+					<h3 id="st_info_course"><?php echo '('.$_SESSION['des'].')'; ?></h3>
+					<br>
+					<a href="studentpassword.html" ><button id="edit">Edit Password</button></a>
+					<br><br>
+				</div>
+			</aside>
+			
+<?php 
+	
+	include "../forum.html";
+	
+?>
+
+
+		</body>
+	</html>
+
+
+

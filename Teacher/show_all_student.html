@@ -1,0 +1,165 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Student List</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+
+			<style type="text/css">
+				#info{
+					font-size:18px;
+					font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+					font-weight:700;
+					color:#092B4C;
+					text-align: left;
+					padding: 10px 10px;
+				}
+
+				#info3{
+					font-size:16px;
+					font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans,Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+					font-weight:700;
+					color:blue;
+					text-align: left;
+					padding: 5px 5px;
+				}
+			</style>
+
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+
+			<aside>
+					<div id="left_side1">	
+					<a href="teacherlogin.html" ><button id="home">Home</button></a>
+					<a href="showstudent.html" ><button id="create_teachers_id">Show Student</button></a>
+					
+					<a href="addstudent.html" ><button id="create_teachers_id">Add Student</button></a>
+					<a href="removestudent.html" ><button id="create_teachers_id">Remove Student</button></a>
+					<a href="attendence.html" ><button id="create_teachers_id">Attendence</button></a>
+					<a href="result.html" ><button id="create_teachers_id">Sessional Marks</button></a>
+					<a href="../notification.html" ><button id="notification">Notification</button></a>
+					<a href="../logout.html" ><button id="logout">Logout</button></a>
+					<br><br>
+				</div>
+
+				
+			
+		<section>
+				<div style="
+					float:left;
+   					margin-left:23px;
+					margin-top:100px;
+					width:1220px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<br>
+					<h1 class="top">SHOW STUDENTS</h1>
+					<h2 style="color: green; text-align: center;">(<span><?php echo strtoupper($_POST['course']); ?> Semester: <?php echo $_POST['sem']; ?></span>)</h2>
+					<br><br>
+
+				
+					
+		<center>
+
+
+
+<?php
+	
+	$con=mysqli_connect('localhost','root','','it');
+		
+		$course=$_POST['course'];
+		$sem=$_POST['sem'];
+		$query="SELECT * FROM `student` WHERE `course`='$course' AND `semester`='$sem' order by `name`";
+		$result=mysqli_query($con,$query);
+		if(!(mysqli_num_rows($result)>0))
+		{
+			echo '<label style="color: red; font-size:30px;"> *Data Is Empty<br></label>';
+		}
+		else
+		{
+
+?>
+
+
+
+		<table border="1">
+			<tr>
+				<td ><label id="info">S.<br>No.</label></td>
+				<td ><label id="info">Roll No </label></td>
+				<td ><label id="info">Name </label></td>
+				<td ><label id="info">Gender </label></td>
+				<td ><label id="info">Phone No </label></td>
+				<td ><label id="info">D.O.B. </label></td>
+				<td ><label id="info">Login ID </label></td>
+				<td ><label id="info">Password </label></td>
+				<td ><label id="info">Total<br>Attend.</label></td>
+				<td ><label id="info">Gain<br>Attend.</label></td>
+			</tr>
+			
+
+<?php
+			$n=0;
+			while($row=mysqli_fetch_assoc($result))
+			{
+				$email=$row['email'];
+				$phone=$row['phone'];
+				$dob=$row['dob'];
+				$name=$row['name'];
+				$pass=$row['password'];
+				$gender=$row['gender'];
+				$roll=$row['Roll_no'];
+				$t_attend=$row['t_attend'];
+				$g_attend=$row['g_attend'];
+				$n=$n+1;
+		
+?>
+
+		<tr>
+				<td ><label id="info3"><?php echo $n; ?></label></td>
+				<td ><label id="info3"><?php echo $roll; ?></label></td>
+				<td ><label id="info3"><?php echo $name; ?></label></td>
+				<td ><label id="info3"><?php echo $gender; ?></label></td>
+				<td ><label id="info3"><?php echo $phone; ?></label></td>
+				<td ><label id="info3"><?php echo $dob; ?></label></td>
+				<td ><label id="info3"><?php echo $email; ?></label></td>
+				<td ><label id="info3"><?php echo $pass; ?></label></td>
+				<td ><label id="info3"><?php echo $t_attend; ?></label></td>
+				<td ><label id="info3"><?php echo $g_attend; ?></label></td>
+			</tr>
+			
+<?php
+			}
+		}
+ 
+?>
+
+				</table>
+				</center>
+					<br><br>
+				</div>
+		</section>
+
+
+			</aside>
+
+
+		</body>
+	</html>
+
+
+

@@ -1,0 +1,73 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Post Notice</title>
+			<link rel="stylesheet" href="css/style4.css"/>
+
+		</head>
+		<body>
+
+			
+
+
+			<br><br><br><br><br>
+			<aside>
+				<div id="left_side">	
+				
+					<a href="shownotification.html" ><button id="logout">Show Notices</button></a>
+					<a href="deletenotification.html" ><button id="logout">Delete Notice</button></a>
+					<a href="logout.html" ><button id="logout">Logout</button></a>
+					<br><br>
+				</div>
+
+				<div id="right_side">
+					
+					<hr style="border:2px solid #092B4C; margin-left: 8px; margin-right: 8px;" />
+					<h3 id="st_info_course"></h3>
+				</div>
+			</aside>
+
+
+			<section>
+				<div id="generate_notification">
+			<br><br>
+
+
+
+					<form action="postnotification.html" method="POST" enctype="multipart/form-data">
+						<table  id="nottable" >
+							<tr><td><label id="write_noti">Write Notification :-</label></td></tr>
+							</br>
+							<tr><td><textarea id="post_text" name="text" placeholder="write text.." required="required"></textarea></td></tr>
+							</br>
+							<tr ><td><br><label id="up_n_img">Upload An Image :-</label></td></tr>
+							<tr><td><br><label for="img" id="image_upload">Select image:</label>
+							<input type="file" id="img_one" name="img" accept="image/*"></td></tr>
+							</br>
+						</table>
+						<br>
+						<input type="submit" name="post" id="submit_two" value="Post Notification">
+						
+					</form>
+
+
+
+
+					<br><br>
+				</div>
+			</section>
+
+
+				
+			
+
+		</body>
+	</html>
+
+
+

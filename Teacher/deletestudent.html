@@ -1,0 +1,185 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Remove Student</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+
+			<aside>
+				
+				<?php 
+					include "leftside.html"
+				?>
+
+				<?php 
+					include "../rightside.html"
+				?>
+
+			</aside>
+			
+		<section>
+				<div style="
+					float:left;
+   					margin-left:65px;
+					margin-top:100px;
+					width:700px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<h1 class="top">DELETE STUDENTS</h1>
+					<h2 style="color: green; text-align: center;">(<span><?php echo strtoupper($_POST['course']); ?> Semester: <?php echo $_POST['sem']; ?></span>)</h2>
+					<br><br>
+
+
+<?php 
+	$con=mysqli_connect('localhost','root','','it');
+	$course=$_POST['course'];
+	$sem=$_POST['sem'];
+
+
+	if(isset($_POST['delete']))
+	{
+
+		if(!empty($_POST['check_list']))
+		{
+			$n=0;
+
+			foreach ($_POST['check_list'] as $value)
+				{
+					$query="DELETE FROM `student` WHERE `email`='$value'";
+					mysqli_query($con,$query);
+					$n++;
+				}
+			
+
+				echo '<center><label style="font-size: 28px; font-family:-apple-system, BlinkMacSystemFont,sans-serif; color: green"><b>'.$n.' Student(s) Removed Successfully..!</b></label></center><br><br>';
+		}
+		else
+		{
+			echo '<center><label style="font-size: 28px; font-family:-apple-system, BlinkMacSystemFont,sans-serif; color: red"><b>Please Select Students..!</b></label></center><br><br>';
+		}
+
+?>
+
+
+
+
+
+				
+
+<?php 
+	
+	}
+	else
+	{
+
+?>
+
+					<form action="deletestudent.html" method="POST">
+					<table width="100%">
+
+<?php
+
+		$query="SELECT * FROM `student` WHERE `course`='$course' AND `semester`='$sem' order by `name`";
+		$result=mysqli_query($con,$query);
+
+		if(!(mysqli_num_rows($result)>0))
+		{
+			echo '<center><label style="font-size: 28px; font-family:-apple-system, BlinkMacSystemFont,sans-serif; color: red"><b>Data Is Empty..! </b></label></center><br><br>';
+		}
+
+		while($row=mysqli_fetch_assoc($result))
+		{
+
+
+?>
+
+			
+				<tr>
+					<td><label id="info">Name: </label></td>
+					<td><label id="info2"><?php echo ucwords($row['name']); ?></label></td>
+				</tr>
+				<tr>
+					<td><label id="info">Roll No: </label></td>
+					<td><label id="info2"><?php echo $row['Roll_no']; ?></label></td>
+					<td colspan="2" style="text-align: left;">
+						<input type="checkbox" style="margin-right: 50px;  height: 25px; width: 25px; background-color: aliceblue;" name="check_list[]" value="<?php echo $row['email']; ?>" >
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4">
+						<br>
+						<hr style="padding-left: 20px; padding-right: 20px; border: 2px solid gainsboro; border-radius: 2px; " />
+						<br>
+					</td>
+				</tr>
+
+
+
+<?php		
+		}
+
+		if((mysqli_num_rows($result)>0))
+		{
+?>
+
+			
+					<tr>
+						<td colspan="5">
+							<center>
+							<input type="submit" value="Remove Students" name="delete" id="submit_one">
+							</center>
+						</td>
+					</tr>
+<?php
+		}
+?>
+					<tr>
+						<td><input type="text" name="course" style="visibility: hidden;" value="<?php echo $_POST['course']; ?>"></td> 
+						<td><input type="text" name="sem" style="visibility: hidden;" value="<?php echo $_POST['sem']; ?>"></td>
+					</tr>			
+
+					</table>
+					</form>
+<?php
+	}
+?>
+					<br>
+				</div>
+		</section>
+
+
+		</body>
+	</html>
+
+
+
+<?php
+
+	mysqli_close($con);
+}
+else
+{
+	echo"<h2>Session Expired</h2>";
+	echo"Login Again <a href='HOD.html'>Click here</a>";
+}
+
+
+ ?>	

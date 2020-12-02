@@ -1,0 +1,110 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>NOTICE</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+			<br><br><br><br><br>
+			<aside>
+					<div id="left_side">	
+					<a href="studentlogin.html" ><button id="home">Home</button></a>
+					<a href="attendance.html" ><button id="home">Attendance</button></a>
+					<a href="sessional_marks.html" ><button id="home">Sessional Marks</button></a>
+					<a href="notification.html" ><button id="home">Notification</button></a>
+					<a href="../logout.html" ><button id="home">Logout</button></a>
+					
+					<br><br>
+				</div>
+
+				<?php 
+					include "../rightside.html"
+				?>
+			</aside>
+
+
+		<section>
+				<div style="
+					float:left;
+   					margin-left:65px;
+					margin-top:100px;
+					width:700px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<h1 style="text-align: center; font-size: 50px; color: darkgreen; letter-spacing: 10px;" ><b>NOTICE</b></h1>
+					<br><br>
+<?php
+	
+		$con=mysqli_connect('localhost','root','','it');
+		$query="SELECT * FROM `notification` order by `nid` DESC";
+		$result=mysqli_query($con,$query);
+
+		$target='../noticepics/';
+		while($row=mysqli_fetch_assoc($result))
+		{
+			$name=$row['pname'];
+			$date=$row['date'];
+			$nid=$row['nid'];
+
+			$notice=$row['notice'];
+			$img=$row['image'];
+			$des=$row['des'];
+
+
+		
+?>
+			
+			<h1>Notice ID: <?php echo $nid; ?></h1>
+			<p style="padding-left: 35px; font-size: 20px;" > <?php echo $notice; ?> </p>
+			<br>
+			<h4 style="color: darkorange; padding-left: 35px;"><?php echo $name.' ('.$des.')';  ?> </h4>
+			<h4 style="color: blue; padding-left: 35px;"?> <?php echo $date;  ?></h4>
+			<br>
+			
+			
+			<?php if(!($img=='0')){  ?>
+			<center>
+			<img src="<?php echo $target.$img; ?>" style="max-width: 
+			500px;" />
+			</center>
+			<br>
+			<?php } ?>
+			
+			
+			<hr style="padding-left: 20px; padding-right: 20px; border: 2px solid gainsboro; border-radius: 2px; " />
+			<br>
+
+
+<?php 
+		}//while loop
+?>
+
+
+		
+					<br><br>
+				</div>
+		</section>
+			
+
+		</body>
+	</html>
+
+
+

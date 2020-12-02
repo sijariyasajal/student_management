@@ -1,0 +1,121 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Attendance</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+			<style type="text/css">
+				th{
+					font-size: 32px;
+					font-weight: 700;
+					text-align: center;
+					color: black;	
+					}
+					
+					.lbb{
+					font-size: 28px;
+					font-weight: 700;
+					color: darkblue;
+					}
+			</style>
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+			<aside>
+					<div id="left_side">	
+					<a href="studentlogin.html" ><button id="home">Home</button></a>
+					<a href="attendance.html" ><button id="home">Attendance</button></a>
+					<a href="sessional_marks.html" ><button id="home">Sessional Marks</button></a>
+					<a href="notification.html" ><button id="home">Notification</button></a>
+					<a href="../logout.html" ><button id="home">Logout</button></a>
+					
+					<br><br>
+				</div>
+
+				<?php 
+					include "../rightside.html"
+				?>
+			</aside>
+
+			
+		<section>
+				<div style="
+					float:left;
+   					margin-left:65px;
+					margin-top:100px;
+					width:700px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<h1 class="top">ATTENDANCE</h1>
+						<center>
+						<hr style="padding-left: 20px; padding-right: 20px; border: 2px solid dimgray; border-radius: 2px; width: 240px;" />
+						</center>
+						<br>
+					<br><br>
+
+
+
+<?php 
+
+	$con=mysqli_connect('localhost','root','','it');
+	$email=$_SESSION['email'];
+
+	$query="SELECT * FROM `student` WHERE `email`='$email'";
+	$result=mysqli_query($con, $query);
+	$row=mysqli_fetch_assoc($result);
+
+	$m=$row['t_attend'];
+	$n=$row['g_attend'];
+
+	if($m<=0)
+		$p=0;
+	else
+		$p=($n*100.0)/$m;
+
+	$p=round($p,2);
+
+	if($p>=75.0)
+		$c="green";
+	else
+	if($p<75.0 && $p>=50.0)
+		$c="orange";
+	else
+		$c="red";
+
+
+
+?>
+
+			<table width="100%">
+				<tr>
+					<th><center><label>Total Attendance</label></center></th>
+					<th><center><label>Obtained Attendance</label></center></th>
+				</tr>
+				<tr><td><br></td></tr>
+				<tr>
+					<td><center><label class="lbb"><?php echo $row['t_attend']; ?></label></center></td>
+					<td><center><label class="lbb"><?php echo $row['g_attend']; ?></label></center></td>
+				</tr>
+			</table>
+
+			<br><br><br><br>
+			<center>
+				<label style="font-size: 28px; color: darkgreen;"><b>Attendance Percentage</b></label><br><br>
+				<label style="font-size: 34px; color: <?php echo $c; ?>"><b><?php echo $p ?>%</b></label>
+			</center>
+
+			<br><br>

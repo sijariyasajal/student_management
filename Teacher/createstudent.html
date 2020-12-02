@@ -1,0 +1,206 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Add Student</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+
+			<aside>
+					<div id="left_side1">	
+					<a href="teacherlogin.html" ><button id="home">Home</button></a>
+					<a href="showstudent.html" ><button id="create_teachers_id">Show Student</button></a>
+					
+					<a href="addstudent.html" ><button id="create_teachers_id">Add Student</button></a>
+					<a href="removestudent.html" ><button id="create_teachers_id">Remove Student</button></a>
+					<a href="attendence.html" ><button id="create_teachers_id">Attendence</button></a>
+					<a href="result.html" ><button id="create_teachers_id">Sessional Marks</button></a>
+					<a href="../notification.html" ><button id="notification">Notification</button></a>
+					<a href="../logout.html" ><button id="logout">Logout</button></a>
+					<br><br>
+				</div>
+
+				
+			
+		<section>
+				<div style="
+					float:left;
+   					margin-left:40px;
+   					margin-right:20px;
+					margin-top:100px;
+					width:950px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<h1 class="top">ADD STUDENTS</h1>
+					<h2 style="color: green; text-align: center;">(<span><?php echo strtoupper($_POST['course']); ?> Semester: <?php echo $_POST['sem']; ?></span>)</h2>
+					<br><br>
+
+					<center>
+					<form action="createstudent.html" method="POST">
+					<table>
+						
+							<tr>
+								<td><label id="name">Name: </label></td> 
+								<td><input type="text" placeholder="Enter Name.." id="put_name" required="required" name="name"></td>
+							</tr>
+							<tr>
+								<td><label id="name">Roll No: </label></td> 
+								<td><input type="text"  id="put_name" required="required" name="roll" placeholder="Roll no"></td>
+							</tr>
+							<tr> 
+								<td><label id="email">E-Mail: </label></td> 
+								<td><input type="text" placeholder="Enter Email.." id="put_mail" required="required" name="email"></td>
+							</tr>
+							<tr>
+								<td><label id="name">D.O.B: </label></td> 
+								<td><input type="date" id="put_name" required="required" name="dob"></td>
+							</tr>
+							<tr>
+								<td><label id="phone">Phone No: </label></td> 
+								<td><input type="text" placeholder="Enter phone.." id="put_phone" required="required" name="phone"></td>
+							</tr>
+							<tr><td><br></td></tr>
+							<tr>
+							<td><label id="name">Gender: </label></td>
+							<td>
+								<input type="radio" name= "gender" value= "male"  required="required" style="margin-left: 20px;" /><label style="margin-left: 10px; margin-right: 20px;"> Male</label>
+								<input type="radio" name= "gender" value= "female"  required="required"/><label style="margin-left: 10px; margin-right: 20px;">Female</label>
+								<input type="radio" name= "gender" value= "other"  required="required"/><label style="margin-left: 10px;">Other</label>
+							</td>
+							</tr>
+							<tr>
+								<td colspan="2" align="center">
+								<input type="submit" value="Add Student" name="ok" id="submit_one">
+								</td>
+							</tr>
+							<tr>
+								<td><input type="text" name="course" style="visibility: hidden;" value="<?php echo $_POST['course']; ?>"></td> 
+								<td><input type="text" name="sem" style="visibility: hidden;" value="<?php echo $_POST['sem']; ?>"></td>
+							</tr>			
+
+					</table>
+					</form>
+					</center>
+					<br>
+
+
+
+
+<?php
+	
+	if(isset($_POST['ok']))
+	{
+		$con=mysqli_connect('localhost','root','','it');
+		
+		$email=strtolower($_POST['email']);
+		$phone=$_POST['phone'];
+		$dob=$_POST['dob'];
+		$name=$_POST['name'];
+		$gender=$_POST['gender'];
+		$roll=$_POST['roll'];
+		$sem=$_POST['sem'];
+		$course=$_POST['course'];
+
+		$query="SELECT * FROM `student` WHERE `email`='$email'";
+		$result=mysqli_query($con,$query);
+		if(mysqli_num_rows($result)>0)
+		{
+			echo '<label style="color: red;"> *Email Is Already Exist<br>*Please Enter Another Email</label>';
+		}
+		else
+		{
+
+			$password=substr($email,4,1).substr($phone,6,1).substr($name,1,1).substr($phone,3,1).substr($email,0,1).substr($name,3,1);
+			$query="INSERT INTO `student`(`name`, `email`,`dob`,`phone`,`password`,`gender`,`course`,`semester`,`roll_no`) VALUES ('$name','$email','$dob','$phone','$password','$gender','$course','$sem','$roll')";
+			mysqli_query($con,$query);
+?>
+
+		<label style="font-size: 28px; font-family:-apple-system, BlinkMacSystemFont,sans-serif;"><b>Add Successfully..!</b></label><br><br>
+		<table>
+			<tr>
+				<td class="bd"><label id="info">Name: </label></td>
+				<td class="bd"><label id="info2"><?php echo $name; ?></label></td>
+			</tr>
+			<tr>
+				<td class="bd"><label id="info">Course: </label></td>
+				<td class="bd"><label id="info2"><?php echo strtoupper($course); ?></label></td>
+			</tr>
+			<tr>
+				<td class="bd"><label id="info">Semester: </label></td>
+				<td class="bd"><label id="info2"><?php echo $sem; ?></label></td>
+			</tr>
+			<tr>
+				<td class="bd"><label id="info">Gender: </label></td>
+				<td class="bd"><label id="info2"><?php echo $gender; ?></label></td>
+			</tr>
+			<tr>
+				<td class="bd"><label id="info">D.O.B: </label></td>
+				<td class="bd"><label id="info2"><?php echo $dob; ?></label></td>
+			</tr>
+			<tr>
+				<td class="bd"><label id="info">Phone NO.: </label></td>
+				<td class="bd"><label id="info2"><?php echo $phone; ?></label></td>
+			</tr>
+			<tr>
+				<td class="bd"><label id="info">Login ID: </label></td>
+				<td class="bd"><label id="info2"><?php echo $email; ?></label></td>
+			</tr>
+			<tr>
+				<td><label id="info">Password: </label></td>
+				<td><label id="info2"><?php echo $password; ?></label></td>
+			</tr>
+		</table>
+
+
+<?php
+		}
+
+		
+	} 
+
+?>
+					<br><br>
+
+
+
+
+
+				</div>
+		</section>
+
+
+
+				<div id="right_side1">
+					
+					<hr style="border:2px solid #092B4C; margin-left: 8px; margin-right: 8px;" />
+					<h3 id="st_info_course"><?php echo '('.$_SESSION['des'].')'; ?></h3>
+					<br>
+				</div>
+			</aside>
+
+
+
+
+
+		</body>
+	</html>
+
+
+

@@ -1,0 +1,181 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Sessional Marks</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+			<style type="text/css">
+				#sm_button{
+							
+							background-color: aliceblue;
+							border:1px solid black;
+							width:70px;	
+							padding: 3px 3px;
+						}
+				.info2{
+						font-size:20px;
+						font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+						font-weight: 700;
+						color:blue;
+					}
+
+							
+			</style>
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+
+			<aside>
+				
+				<?php 
+					include "leftside.html"
+				?>
+
+				<?php 
+					include "../rightside.html"
+				?>
+
+			</aside>
+			
+		<section>
+				<div style="
+					float:left;
+   					margin-left:65px;
+					margin-top:100px;
+					width:700px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<h1 class="top">SESSIONAL MARKS</h1>
+					<h2 style="color: green; text-align: center;">(<span><?php echo strtoupper($_POST['course']); ?> Semester: <?php echo $_POST['sem']; ?></span>)<br>Subject: <?php echo ucfirst($_POST['subject']); ?></h2>
+					<br><br>
+
+
+<?php 
+	$con=mysqli_connect('localhost','root','','it');
+	$course=$_POST['course'];
+	$sem=$_POST['sem'];
+	$subject=$_POST['subject'];
+	$sessional=$_POST['sessional'];
+
+
+	if($sessional=='s1')
+		$s="Sessional 1";
+
+	if($sessional=='s2')
+		$s="Sessional 2";
+
+	if($sessional=='s3')
+		$s="Sessional 3";
+
+
+
+	echo '<center><label style="font-size: 28px; font-family:-apple-system, BlinkMacSystemFont,sans-serif; color: darkblue"><b>'.$s.'</b></label></center><br><br>';
+
+
+
+
+	if(isset($_POST['select']))
+	{
+
+		
+
+?>
+
+
+					<center>
+					<table cellspacing="15">
+					<tr>
+						<td><label id="info">Name<label></td>
+						<td><label id="info"><center>Roll No</center><label></td>
+						<td><label id="info"><center>Max Marks</center></label></td>
+						<td><label id="info"><center>Marks Obtained<center></label></td>	
+					</tr>
+					<tr>
+						<td colspan="5">
+						<hr style="padding-left: 20px; padding-right: 20px; border: 2px solid dimgray; border-radius: 2px; " />
+				    	</td>
+				    </tr>
+
+
+
+<?php
+
+		$query="SELECT `$sessional`,`sid` FROM `smstudent` WHERE `course`='$course' AND `semester`='$sem' AND `subject`='$subject' order by `id`";
+		if(!($result=mysqli_query($con,$query)))
+			die(mysqli_error($con));
+
+
+
+
+
+		while($row=mysqli_fetch_assoc($result))
+		{	
+
+			$email=$row['sid'];
+
+			$query1="SELECT `name`,`Roll_no` FROM `student` WHERE `course`='$course' AND `semester`='$sem' AND `email`='$email'";
+			$result1=mysqli_query($con,$query1);
+
+
+			$row1=mysqli_fetch_assoc($result1);
+
+?>
+
+
+					<tr>
+						<td><label class="info2"><?php echo ucwords($row1['name']); ?></label></td>
+						<td><label class="info2"><center><?php echo $row1['Roll_no']; ?></center></label></td>
+						<td><label class="info2"><center>30</center></label></td>
+						<td><label class="info2"><center><?php echo $row["$sessional"]; ?></center></label></td>
+					</tr>
+					<tr>						
+						<td colspan="5">
+						<hr style="padding-left: 20px; padding-right: 20px; border: 2px solid gainsboro; border-radius: 2px; " />
+						</td>
+					</tr>
+
+
+<?php
+			
+		}
+
+	}
+?>	
+					</table>
+					</center>
+					<br>
+				</div>
+		</section>
+
+
+		</body>
+	</html>
+
+
+
+<?php
+
+	mysqli_close($con);
+}
+else
+{
+	echo"<h2>Session Expired</h2>";
+	echo"Login Again <a href='HOD.html'>Click here</a>";
+}
+
+
+ ?>	

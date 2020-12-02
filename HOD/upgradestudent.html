@@ -1,0 +1,140 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Promote Student</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+			<br><br><br><br><br>
+			<aside>
+
+				<?php
+				include "leftside.html"
+				?>
+
+
+
+				<?php
+				include "../rightside.html"
+				?>
+				
+			</aside>
+
+
+		<section>
+				<div style="
+					float:left;
+   					margin-left:65px;
+					margin-top:100px;
+					width:700px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					
+<?php 
+
+	if(isset($_POST['submit']))
+	{
+		$con=mysqli_connect('localhost','root','','it');
+		$course=$_POST['course'];
+
+
+		$query="UPDATE `student` SET `semester`=`semester`+'1', `t_attend`='0', `g_attend`='0' WHERE `course`='$course'";
+		
+		if(!mysqli_query($con,$query))
+			die('Query'.mysqli_error($con));
+
+		echo '<br><br><center><label style="font-size: 28px; font-family:-apple-system, BlinkMacSystemFont,sans-serif; color: green"><b>'.strtoupper($course).' Students Are Promoted</b></label></center><br><br>';
+
+		$query="SELECT COUNT(*) AS `num` FROM `student` WHERE `course`='$course' AND `semester`='8'";
+		$result=mysqli_query($con,$query);
+		$row=mysqli_fetch_assoc($result);
+
+
+		//To Empty Table
+		$qq="TRUNCATE TABLE `smstudent`";
+		mysqli_query($con,$qq);
+		$qq="TRUNCATE TABLE `smteacher`";
+		mysqli_query($con,$qq);
+
+
+
+
+		$query="DELETE  FROM `student` WHERE `course`='$course' AND `semester`='8'";
+		mysqli_query($con,$query);
+		if($row['num']>0)
+		{
+			echo '<center><label style="font-size: 20px; font-family:-apple-system, BlinkMacSystemFont,sans-serif; color: red"><b>'.$row['num'].' Last Year Student Data Is Removed</b></label></center><br><br>';
+
+		}
+		
+
+	}
+	else
+	{
+
+?>
+
+
+					<center>
+					<form action="upgradestudent.html" method="POST">
+
+					<table>
+						<tr>
+							<td><label id="name">Select Course: </label></td>
+							<td>
+						<select name="course" class="dp_button" required="required">
+							<option value="">Select</option>
+							<option value="bca">B.C.A.(Hons.)</option>
+							<option value="mca">M.C.A.</option>
+							<option value="bsc">B.Sc.(CS and Statistics)</option>
+							<option value="msc">M.Sc. (CS and Statistics)</option>
+						</select>
+							</td>
+						</tr>
+
+						<tr><td><br></td></tr>
+
+						<tr>
+							<td colspan="2" align="center">
+								<input type="submit" name="submit"  value="Promote Students" id="submit_one">
+							</td>
+						</tr>
+
+					</table>
+
+					</form>
+					</center>
+
+
+<?php } ?>
+
+
+
+
+					<br><br>
+				</div>
+		</section>
+			
+
+		</body>
+	</html>
+
+
+

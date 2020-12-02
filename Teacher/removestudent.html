@@ -1,0 +1,104 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Remove Student</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+
+			<aside>
+				<?php 
+					include "leftside.html"
+				?>
+
+				<?php 
+					include "../rightside.html"
+				?>
+			</aside>
+			
+		<section>
+				<div style="
+					float:left;
+   					margin-left:65px;
+					margin-top:100px;
+					width:700px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<h1 class="top">REMOVE STUDENTS</h1>
+					<br><br>
+
+					<center>
+					<form action="deletestudent.html" method="POST">
+
+					<table>
+						<tr>
+							<td><label id="name">Select Course: </label></td>
+							<td>
+						<select name="course" class="dp_button" required="required">
+							<option value="">Select</option>
+							<option value="bca">B.C.A.(Hons.)</option>
+							<option value="mca">M.C.A.</option>
+							<option value="bsc">B.Sc.(CS and Statistics)</option>
+							<option value="msc">M.Sc. (CS and Statistics)</option>
+						</select>
+							</td>
+						</tr>
+
+						<tr><td><br></td></tr>
+
+						<tr>
+							<td><label id="name">Select Semester: </label></td>
+							<td>
+						<select name="sem" class="dp_button" required="required">
+							<option value="">Select</option>
+							<option value="1">Semester 1</option>
+							<option value="2">Semester 2</option>
+							<option value="3">Semester 3</option>
+							<option value="4">Semester 4</option>
+							<option value="5">Semester 5</option>
+							<option value="6">Semester 6</option>
+						</select>
+							</td>
+						</tr>
+
+						<tr><td><br></td></tr>
+
+						<tr>
+							<td colspan="2" align="center">
+								<input type="submit" name="submit"  value="Submit" id="submit_one">
+							</td>
+						</tr>
+
+					</table>
+
+					</form>
+					</center>
+
+
+					<br><br>
+				</div>
+		</section>
+
+
+		</body>
+	</html>
+
+
+

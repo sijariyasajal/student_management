@@ -1,0 +1,199 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Sessional Marks</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+			<style type="text/css">
+				#sm_button{
+							
+							background-color: aliceblue;
+							border:1px solid black;
+							width:70px;	
+							padding: 3px 3px;
+							outline:none;
+						
+						}
+				.info2{
+						font-size:20px;
+						font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+						font-weight: 700;
+						color:blue;
+					}
+
+							
+			</style>
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+
+			<aside>
+				<?php 
+					include "leftside.html"
+				?>
+
+				<?php 
+					include "../rightside.html"
+				?>
+
+			</aside>
+			
+		<section>
+				<div style="
+					float:left;
+   					margin-left:65px;
+					margin-top:100px;
+					width:700px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<h1 class="top">SESSIONAL MARKS</h1>
+					<h2 style="color: green; text-align: center;">(<span><?php echo strtoupper($_POST['course']); ?> Semester: <?php echo $_POST['sem']; ?></span>)<br>Subject: <?php echo ucfirst($_POST['subject']); ?></h2>
+					<br><br>
+
+
+<?php 
+	$con=mysqli_connect('localhost','root','','it');
+	$course=$_POST['course'];
+	$sem=$_POST['sem'];
+	$subject=$_POST['subject'];
+	$sessional=$_POST['sessional'];
+
+
+	if(isset($_POST['submit']))
+	{
+
+		$query="SELECT `email` FROM `student` WHERE `course`='$course' AND `semester`='$sem' order by `name`";
+		$result=mysqli_query($con,$query);
+
+		$k=0;
+		while($row=mysqli_fetch_assoc($result))
+		{	
+			$k++;
+			$email=$row['email'];
+			$mark='mark'.$k;
+			$m=$_POST["$mark"];
+
+
+			$query="UPDATE `smstudent` SET `$sessional`='$m' WHERE `sid`='$email' AND `course`='$course' AND `semester`='$sem' AND `subject`='$subject'";
+			if(!mysqli_query($con,$query))
+				die(mysqli_error($con));
+		}
+
+
+		echo '<br><center><label style="font-size: 28px; font-family:-apple-system, BlinkMacSystemFont,sans-serif; color: green"><b>Marks Submitted</b></label></center><br><br>';
+	
+
+	}
+	else
+	{
+
+?>
+
+					<form action="sessional.html" method="POST">
+					<center>
+					<table cellspacing="15">
+					<tr>
+						<td><label id="info">Name<label></td>
+						<td><label id="info"><center>Roll No</center><label></td>
+						<td><label id="info"><center>Max Marks</center></label></td>
+						<td><label id="info"><center>Marks Obtained<center></label></td>	
+					</tr>
+					<tr>
+						<td colspan="5">
+						<hr style="padding-left: 20px; padding-right: 20px; border: 2px solid dimgray; border-radius: 2px; " />
+				    	</td>
+				    </tr>
+
+<?php
+
+		$query="SELECT * FROM `student` WHERE `course`='$course' AND `semester`='$sem' order by `name`";
+		if(!($result=mysqli_query($con,$query)))
+			die(mysqli_error($con));
+
+		$n=0;
+		while($row=mysqli_fetch_assoc($result))
+		{
+			$n++;
+
+?>
+
+					<tr>
+						<td><label class="info2"><?php echo ucwords($row['name']); ?></label></td>
+						<td><label class="info2"><center><?php echo $row['Roll_no']; ?></center></label></td>
+						<td><label class="info2"><center>30</center></label></td>
+						<td>
+							<center>
+							<input type="number" required="required" name="<?php echo 'mark'.$n; ?>" id="sm_button" max="30" min="0">
+							</center>
+						</td>
+					</tr>
+					<tr>						
+						<td colspan="5">
+						<hr style="padding-left: 20px; padding-right: 20px; border: 2px solid gainsboro; border-radius: 2px; " />
+					</td>
+				</tr>
+
+
+
+<?php		
+		}
+?>
+
+			
+					<tr>
+						<td colspan="5">
+							<center>
+							<input type="submit" value="Submit" name="submit" id="submit_one">
+							</center>
+						</td>
+					</tr>
+
+					<tr>
+						<td><input type="text" name="course" style="visibility: hidden;" value="<?php echo $_POST['course']; ?>"></td> 
+						<td><input type="number" name="sem" style="visibility: hidden;" value="<?php echo $_POST['sem']; ?>"></td>
+						<td><input type="text" name="sessional" style="visibility: hidden;" value="<?php echo $_POST['sessional']; ?>"></td>
+						<td><input type="text" name="subject" style="visibility: hidden;" value="<?php echo $_POST['subject']; ?>"></td>
+					</tr>			
+
+					</table>
+					</center>
+					</form>
+<?php
+	}
+?>
+					<br>
+				</div>
+		</section>
+
+
+		</body>
+	</html>
+
+
+
+<?php
+
+	mysqli_close($con);
+}
+else
+{
+	echo"<h2>Session Expired</h2>";
+	echo"Login Again <a href='HOD.html'>Click here</a>";
+}
+
+
+ ?>	

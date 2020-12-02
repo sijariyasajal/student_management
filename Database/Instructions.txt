@@ -1,0 +1,7 @@
+Steps:-
+1. Install The Xampp Server
+2. open a web browser
+3. start the xampp server (Apache and Mysql)
+4. In web browser go to: localhost/phpmyadmine
+5. here import the it.sql
+FINISH

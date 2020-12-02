@@ -1,0 +1,176 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Sessional Marks</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+			<style type="text/css">
+				
+				#sm_button{
+							margin-left: 2px;
+							background-color: aliceblue;
+							box-shadow: 0px 5px 17px #888888;
+							border:none;	
+							padding: 3px 3px;
+						}
+
+				
+				.lbb{
+					font-size: 24px;
+					font-weight: 700;
+					color: darkblue;
+				}
+				
+				th{
+					font-size: 28px;
+					font-weight: 700;
+					text-align: center;
+					color: black;	
+					}
+			</style>
+		</head>
+		<body>
+
+			<?php
+				include "../Header/header.html"
+			?>
+
+
+
+			<aside>
+				<?php 
+					include "leftside.html"
+				?>
+
+				<?php 
+					include "../rightside.html"
+				?>
+
+			</aside>
+
+			
+		<section>
+				<div style="
+					float:left;
+   					margin-left:65px;
+					margin-top:100px;
+					width:700px;
+					height:100%;
+					position:relative;
+					background-color: white;
+					border-radius: 20px;
+					padding: 15px;
+					box-shadow: 0px 5px 17px #888888;">	
+
+					<h1 class="top">SESSIONAL MARKS</h1>
+					<br><br>
+
+
+
+
+<?php 
+
+	$con=mysqli_connect('localhost','root','','it');
+
+	$email=$_SESSION['email'];
+
+	$query="SELECT * FROM `smteacher` WHERE `email`='$email' order by `course`";
+
+	$result=mysqli_query($con,$query);
+	if(mysqli_num_rows($result)>0)
+	{
+?>
+
+
+					<center>
+					<table width="100%">
+					<tr>
+						<th>Course</th>
+						<th>Semester</th>
+						<th>Subject</th>
+						<th>Sessional</th>
+						<th></th>
+					</tr>
+					<tr>
+					<td colspan="5">
+						<br>
+						<hr style="padding-left: 20px; padding-right: 20px; border: 3px solid gainsboro; border-radius: 2px; " />
+						<br>
+					</td>
+					</tr>
+
+
+
+
+
+<?php
+		while($row=mysqli_fetch_assoc($result))
+		{
+
+?>
+		
+		
+			<form action="showmarks.html" method="POST">
+				<tr>
+					<td><center><label class="lbb"><?php echo strtoupper($row['course']); ?></label></center></td>
+					<td><center><label class="lbb"><b><?php echo $row['semester']; ?></b></label></center></td>
+					<td><center><label class="lbb"><?php echo ucfirst($row['subject']); ?></label></center></td>
+					<td>
+					<select name="sessional" id="sm_button" required="required">
+							<option value="">Select</option>
+							<option value="s1">Sessional 1</option>
+							<option value="s2">Sessional 2</option>
+							<option value="s3">Sessional 3</option>
+					</select>
+					</td>
+					<td><center><input type="submit" name="select" value="Enter"    style="border:none; color: blue; cursor: pointer; background-color: white; font-size: 18px; margin-left: 50px; margin-right: 15px;"></center></td>
+				</tr>
+				<tr>
+					<td><input type="text" name="course" value="<?php echo $row['course']; ?>" style="visibility: hidden;"></td>
+					<td><input type="number" name="sem" value="<?php echo $row['semester']; ?>" style="visibility: hidden;"></td>
+					<td><input type="text" name="subject" value="<?php echo $row['subject']; ?>" style="visibility: hidden;"></td>
+				</tr>
+				<tr>
+					<td colspan="5">
+						<hr style="padding-left: 20px; padding-right: 20px; border: 2px solid gainsboro; border-radius: 2px; " />
+						<br>
+					</td>
+				</tr>
+			</form>
+
+<?php
+
+
+		}
+
+?>
+
+					</table>
+				</center>
+				
+
+<?php
+
+	}
+	else 
+	{
+		echo '<br><center><label style="font-size: 28px; font-family:-apple-system, BlinkMacSystemFont,sans-serif; color: red"><b>No Data Found</b></label></center><br><br>';
+	}
+
+?>
+
+
+					<br><br>
+				</div>
+		</section>
+
+
+		</body>
+	</html>
+
+
+
