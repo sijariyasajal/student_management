@@ -1,9 +1,4 @@
-<?php 
-session_start();
-if(isset($_SESSION['name']))
-{
 
-?>
 
 
 
@@ -17,9 +12,18 @@ if(isset($_SESSION['name']))
 		</head>
 		<body>
 
-			<?php
-				include "../Header/header.html"
-			?>
+			<header>
+				<div id="container">
+					<div id="div1">
+				
+						<div id="dept_name">COMPUTER SCIENCE ENGINEERING</div>
+					<div id="div2">
+						<div id="logo">
+							<img src="../image/gla-footer-logo.png" alt="logo icon"  id="logo_image"  >    
+						</div>
+					</div>
+				</div>
+			</header>
 
 
 					<a href="../askquestion.html" target="_blank"><button id="ask_ques">Ask Question</button></a>

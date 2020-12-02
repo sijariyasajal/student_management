@@ -48,31 +48,12 @@
 
 					<br>
 					<h1 class="top">SHOW STUDENTS</h1>
-					<h2 style="color: green; text-align: center;">(<span><?php echo strtoupper($_POST['course']); ?> Semester: <?php echo $_POST['sem']; ?></span>)</h2>
 					<br><br>
 
 				
 		<center>
 					
 
-<?php
-	
-	$con=mysqli_connect('localhost','root','','it');
-		
-
-		$course=$_POST['course'];
-		$sem=$_POST['sem'];
-
-		$query="SELECT * FROM `student` WHERE `course`='$course' AND `semester`= '$sem' order by `name`";
-		$result=mysqli_query($con,$query);
-		if(!(mysqli_num_rows($result)>0))
-		{
-			echo '<label style="color: red; font-size: 30px;"> *Data Is Empty<br></label>';
-		}
-		else
-		{
-
-?>
 		<table border="1">
 			<tr>
 				<td ><label id="info">S.<br>No.</label></td>
@@ -88,42 +69,9 @@
 			</tr>
 			
 
-<?php
 
-			$n=0;
-			while($row=mysqli_fetch_assoc($result))
-			{
-				$email=$row['email'];
-				$phone=$row['phone'];
-				$dob=$row['dob'];
-				$name=$row['name'];
-				$pass=$row['password'];
-				$gender=$row['gender'];
-				$roll=$row['Roll_no'];
-				$t_attend=$row['t_attend'];
-				$g_attend=$row['g_attend'];
-				$n=$n+1;
-		
-?>
 
-		<tr>
-				<td ><label id="info3"><?php echo $n; ?></label></td>
-				<td ><label id="info3"><?php echo $roll; ?></label></td>
-				<td ><label id="info3"><?php echo $name; ?></label></td>
-				<td ><label id="info3"><?php echo $gender; ?></label></td>
-				<td ><label id="info3"><?php echo $phone; ?></label></td>
-				<td ><label id="info3"><?php echo $dob; ?></label></td>
-				<td ><label id="info3"><?php echo $email; ?></label></td>
-				<td ><label id="info3"><?php echo $pass; ?></label></td>
-				<td ><label id="info3"><?php echo $t_attend; ?></label></td>
-				<td ><label id="info3"><?php echo $g_attend; ?></label></td>
-			</tr>
-			
-<?php
-			}
-		}
- 
-?>
+
 
 				</table>
 				</center>

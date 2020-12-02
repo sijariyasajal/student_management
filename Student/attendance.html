@@ -25,9 +25,7 @@
 		</head>
 		<body>
 
-			<?php
-				include "../Header/header.html"
-			?>
+		
 
 
 			<aside>
@@ -41,9 +39,7 @@
 					<br><br>
 				</div>
 
-				<?php 
-					include "../rightside.html"
-				?>
+				
 			</aside>
 
 			
@@ -69,53 +65,12 @@
 
 
 
-<?php 
-
-	$con=mysqli_connect('localhost','root','','it');
-	$email=$_SESSION['email'];
-
-	$query="SELECT * FROM `student` WHERE `email`='$email'";
-	$result=mysqli_query($con, $query);
-	$row=mysqli_fetch_assoc($result);
-
-	$m=$row['t_attend'];
-	$n=$row['g_attend'];
-
-	if($m<=0)
-		$p=0;
-	else
-		$p=($n*100.0)/$m;
-
-	$p=round($p,2);
-
-	if($p>=75.0)
-		$c="green";
-	else
-	if($p<75.0 && $p>=50.0)
-		$c="orange";
-	else
-		$c="red";
 
 
-
-?>
-
-			<table width="100%">
-				<tr>
-					<th><center><label>Total Attendance</label></center></th>
-					<th><center><label>Obtained Attendance</label></center></th>
-				</tr>
-				<tr><td><br></td></tr>
-				<tr>
-					<td><center><label class="lbb"><?php echo $row['t_attend']; ?></label></center></td>
-					<td><center><label class="lbb"><?php echo $row['g_attend']; ?></label></center></td>
-				</tr>
-			</table>
-
+			
 			<br><br><br><br>
 			<center>
 				<label style="font-size: 28px; color: darkgreen;"><b>Attendance Percentage</b></label><br><br>
-				<label style="font-size: 34px; color: <?php echo $c; ?>"><b><?php echo $p ?>%</b></label>
 			</center>
 
 			<br><br>

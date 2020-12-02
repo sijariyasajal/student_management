@@ -12,19 +12,12 @@
 		</head>
 		<body>
 
-			<?php
-				include "../Header/header.html"
-			?>
 
 
 			<br><br><br><br><br>
 			<aside>
 				
-				<?php
-				include "leftside.html"
-				?>
-
-				
+			
 
 
 		<section>
@@ -58,49 +51,15 @@
 				</td>
 			</tr>
 
-<?php
-	
-		$con=mysqli_connect('localhost','root','','it');
+
+
 		
-
-		$query="SELECT * FROM `teacher` order by `name`";
-		$result=mysqli_query($con,$query);
-		if(!(mysqli_num_rows($result)>0))
-		{
-			echo '<label style="color: red;"> *Data Is Empty<br></label>';
-		}
-		else
-		{
-			$n=0;
-			while($row=mysqli_fetch_assoc($result))
-			{
-				$email=$row['email'];
-				$phone=$row['phno'];
-				$dob=$row['dob'];
-				$name=$row['name'];
-				$pass=$row['password'];
-				$n=$n+1;
-			
-?>
-
-			<tr>
-				<td ><label id="info3"><?php echo $n; ?></label></td>
-				<td ><label id="info3"><?php echo $name; ?></label></td>
-				<td ><label id="info3"><?php echo $phone; ?></label></td>
-				<td ><label id="info3"><?php echo $dob; ?></label></td>
-				<td ><label id="info3"><?php echo $email; ?></label></td>
-				<td ><label id="info3"><?php echo $pass; ?></label></td>
-			</tr>
 			<tr>
 				<td colspan="6">
 					<hr style=" border: 1px solid dimgray; " />
 				</td>
 			</tr>
-<?php
-			}
-		}
- 
-?>
+
 
 				</table>
 				</center>
@@ -112,7 +71,7 @@
 			<div id="right_side1">
 					
 					<hr style="border:2px solid #092B4C; margin-left: 8px; margin-right: 8px;" />
-					<h3 id="st_info_course"><?php echo '('.$_SESSION['des'].')'; ?></h3>
+				
 				</div>
 			</aside>
 
