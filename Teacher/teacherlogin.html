@@ -1,0 +1,71 @@
+
+
+
+
+<!DOCTYPE html>
+	<html lang="en">
+		<head>
+			
+			<title>Teacher Login</title>
+			<link rel="stylesheet" href="../css/style4.css"/>
+
+		</head>
+		<body>
+
+			<header>
+				<div id="container">
+					<div id="div1">
+				
+						<div id="dept_name">COMPUTER SCIENCE ENGINEERING</div>
+					<div id="div2">
+						<div id="logo">
+							<img src="../image/gla-footer-logo.png" alt="logo icon"  id="logo_image"  >    
+						</div>
+					</div>
+				</div>
+			</header>
+
+
+					<a href="../askquestion.php" target="_blank"><button id="ask_ques">Ask Question</button></a>
+					<a href="../answerquestion.php" target="_blank"><button id="ans_ques">Answer Question</button></a>
+
+			<aside>
+				
+				<?php 
+					include "leftside.php"
+				?>
+
+				<div id="right_side">
+					<h1 id="st_info_name"><?php echo ucwords($_SESSION['name']); ?></h1>
+					<hr style="border:2px solid #092B4C; margin-left: 8px; margin-right: 8px;" />
+					<h3 id="st_info_course"><?php echo '('.$_SESSION['des'].')'; ?></h3>
+					<br>
+					<a href="teacherpass.php" ><button id="edit">Edit Password</button></a>
+					<br><br>
+
+				</div>
+			</aside>
+			
+<?php 
+	
+	include "../forum.php";
+	
+?>
+
+
+		</body>
+	</html>
+
+
+
+<?php
+	
+}
+else
+{
+	echo"<h2>Session Expired</h2>";
+	echo"Login Again <a href='HOD.php'>Click here</a>";
+}
+
+
+ ?>	
